@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'home_cubit.dart';
 
 class HomeArguments {
-
   HomeArguments();
 }
 
@@ -22,13 +22,20 @@ class HomePage extends StatelessWidget {
       create: (context) {
         return HomeCubit();
       },
-      child: const HomeChildPage(),
+      child: HomeChildPage(
+        arguments: arguments,
+      ),
     );
   }
 }
 
 class HomeChildPage extends StatefulWidget {
-  const HomeChildPage({Key? key}) : super(key: key);
+  final HomeArguments arguments;
+
+  const HomeChildPage({
+    required this.arguments,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomeChildPage> createState() => _HomeChildPageState();
@@ -36,6 +43,10 @@ class HomeChildPage extends StatefulWidget {
 
 class _HomeChildPageState extends State<HomeChildPage> {
   late final HomeCubit _cubit;
+  QRViewController? controller;
+  String result = "";
+
+  final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
 
   @override
   void initState() {
@@ -46,21 +57,53 @@ class _HomeChildPageState extends State<HomeChildPage> {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-       appBar: AppBar(),
-       body: SafeArea(
-         child: _buildBodyWidget(),
-       ),
-     );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("QR Code Scanner"),
+        backgroundColor: Colors.blue,
+      ),
+      body: _buildBodyWidget(),
+    );
   }
 
   Widget _buildBodyWidget() {
-    return Container();
+    return Column(
+      children: [
+        Expanded(
+          flex: 5,
+          child: QRView(
+            key: qrKey,
+            onQRViewCreated: _onQRViewCreated,
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(
+              "Result scan: $result",
+              style: const TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((event) {
+      setState(() {
+        result = event.code!;
+      });
+    });
   }
 
   @override
   void dispose() {
     _cubit.close();
+    controller?.dispose();
     super.dispose();
   }
 }
