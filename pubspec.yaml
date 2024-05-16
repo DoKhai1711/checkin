@@ -42,6 +42,8 @@ dependencies:
   equatable: ^2.0.5
   qr_code_scanner: ^1.0.1
   url_launcher: ^6.2.6
+  fluttertoast: ^8.2.5
+  qr_flutter: ^4.1.0
 
 dependency_overrides:
   firebase_database_platform_interface:

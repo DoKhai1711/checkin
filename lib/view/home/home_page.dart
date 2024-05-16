@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'home_cubit.dart';
 
@@ -43,10 +43,6 @@ class HomeChildPage extends StatefulWidget {
 
 class _HomeChildPageState extends State<HomeChildPage> {
   late final HomeCubit _cubit;
-  QRViewController? controller;
-  String result = "";
-
-  final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
 
   @override
   void initState() {
@@ -58,52 +54,22 @@ class _HomeChildPageState extends State<HomeChildPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("QR Code Scanner"),
-        backgroundColor: Colors.blue,
-      ),
       body: _buildBodyWidget(),
     );
   }
 
   Widget _buildBodyWidget() {
-    return Column(
-      children: [
-        Expanded(
-          flex: 5,
-          child: QRView(
-            key: qrKey,
-            onQRViewCreated: _onQRViewCreated,
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: Text(
-              "Result scan: $result",
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-            ),
-          ),
-        ),
-      ],
+    return QrImageView(
+      data: '1234567890',
+      version: QrVersions.auto,
+      size: 200.0,
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((event) {
-      setState(() {
-        result = event.code!;
-      });
-    });
-  }
 
   @override
   void dispose() {
     _cubit.close();
-    controller?.dispose();
     super.dispose();
   }
 }
