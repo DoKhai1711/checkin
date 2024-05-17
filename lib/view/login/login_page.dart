@@ -194,7 +194,7 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                       message: "Đăng nhập thành công",
                                       color: Colors.green
                                     );
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                         builder: (_) => HomePage(
