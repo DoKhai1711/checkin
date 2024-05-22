@@ -2,13 +2,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled/model/visited.dart';
 import 'package:untitled/utils/constant.dart';
 import 'package:untitled/utils/enum.dart';
 
-part 'home_state.dart';
+part 'statistical_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState());
+class StatisticalCubit extends Cubit<StatisticalState> {
+  StatisticalCubit() : super(const StatisticalState());
 
   final db = FirebaseDatabase.instance.ref();
 
@@ -22,14 +23,29 @@ class HomeCubit extends Cubit<HomeState> {
           await SharedPreferences.getInstance();
       String username = sharedPreferences.getString(Constant.USER_NAME) ?? '';
 
+      int totalMoney = 0;
+
       db.child('acc/$username').once().then((snapshot) {
         profile = Map<String, dynamic>.from(
             (snapshot as dynamic).snapshot.value as dynamic);
+
+        List<Visited> listHistory = [];
+        if (profile![Constant.HISTORY] != null) {
+          profile![Constant.HISTORY].forEach((key, value) {
+            final map = Map<String, dynamic>.from(value);
+            Visited item = Visited.fromJson(map);
+            totalMoney += item.money??0;
+            listHistory.add(item);
+          });
+        }
+
         emit(
           state.copyWith(
             loadDataStatus: LoadStatus.success,
             profile: profile,
             username: username,
+            listHistory: listHistory,
+            totalMoney: totalMoney,
           ),
         );
       });
@@ -37,34 +53,5 @@ class HomeCubit extends Cubit<HomeState> {
       //Todo: should print exception here
       emit(state.copyWith(loadDataStatus: LoadStatus.failure));
     }
-  }
-
-  void onChangeData() async {
-
-    SharedPreferences sharedPreferences =
-    await SharedPreferences.getInstance();
-    String username = sharedPreferences.getString(Constant.USER_NAME) ?? '';
-
-    db.child('acc/$username').onValue.listen((DatabaseEvent event) {
-      Map<String, dynamic>? profile = {};
-      profile = Map<String, dynamic>.from(
-          (event as dynamic).snapshot.value as dynamic);
-      try {
-        emit(
-          state.copyWith(
-            profile: profile,
-            changeData: !state.changeData,
-          ),
-        );
-      } catch (e) {}
-    });
-  }
-
-  void changeIsShowMoney() {
-    emit(
-      state.copyWith(
-        isShowMoney: !state.isShowMoney,
-      ),
-    );
   }
 }

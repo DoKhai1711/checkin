@@ -1,18 +1,22 @@
-part of 'home_cubit.dart';
+part of 'statistical_cubit.dart';
 
-class HomeState extends Equatable {
+class StatisticalState extends Equatable {
   final LoadStatus loadDataStatus;
   final Map<String, dynamic>? profile;
   final String? username;
   final bool changeData;
-  final bool isShowMoney;
+  final List<Visited>? listHistory;
+  final int totalCustomer;
+  final int totalMoney;
 
-  const HomeState({
+  const StatisticalState({
     this.loadDataStatus = LoadStatus.initial,
     this.profile,
     this.username,
     this.changeData = false,
-    this.isShowMoney = false,
+    this.listHistory,
+    this.totalCustomer = 0,
+    this.totalMoney = 0,
   });
 
   @override
@@ -21,22 +25,28 @@ class HomeState extends Equatable {
         profile,
         username,
         changeData,
-        isShowMoney,
+        listHistory,
+        totalCustomer,
+        totalMoney,
       ];
 
-  HomeState copyWith({
+  StatisticalState copyWith({
     LoadStatus? loadDataStatus,
     Map<String, dynamic>? profile,
     String? username,
     bool? changeData,
-    bool? isShowMoney,
+    List<Visited>? listHistory,
+    int? totalCustomer,
+    int? totalMoney,
   }) {
-    return HomeState(
+    return StatisticalState(
       loadDataStatus: loadDataStatus ?? this.loadDataStatus,
       profile: profile ?? this.profile,
       username: username ?? this.username,
       changeData: changeData ?? this.changeData,
-      isShowMoney: isShowMoney ?? this.isShowMoney,
+      listHistory: listHistory ?? this.listHistory,
+      totalCustomer: totalCustomer ?? this.totalCustomer,
+      totalMoney: totalMoney ?? this.totalMoney,
     );
   }
 }

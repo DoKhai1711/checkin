@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:untitled/view/pay/pay_page.dart';
 
 class ScanQRWidget extends StatefulWidget {
   const ScanQRWidget({Key? key}) : super(key: key);
@@ -18,8 +19,18 @@ class _ScanQRWidgetState extends State<ScanQRWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("QR Code Scanner"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green.shade500,
+        title: const Text(
+          "Quét mã",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 1,
+        shadowColor: Colors.black,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.green.shade500,
       ),
       body: Column(
         children: [
@@ -49,9 +60,19 @@ class _ScanQRWidgetState extends State<ScanQRWidget> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((event) {
-      setState(() {
-        result = event.code!;
-      });
+      // setState(() {
+      //   result = event.code!;
+      // });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => PayPage(
+            arguments: PayArguments(
+              code: event.code!
+            ),
+          ),
+        ),
+      );
     });
   }
 

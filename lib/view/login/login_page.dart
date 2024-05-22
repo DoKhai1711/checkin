@@ -4,7 +4,7 @@ import 'package:untitled/utils/empty_list_widget.dart';
 import 'package:untitled/utils/enum.dart';
 import 'package:untitled/utils/loading_indicator.dart';
 import 'package:untitled/utils/show_message.dart';
-import 'package:untitled/view/home/home_page.dart';
+import 'package:untitled/view/create_account/create_account_page.dart';
 
 import 'login_cubit.dart';
 
@@ -80,10 +80,10 @@ class _LoginChildPageState extends State<LoginChildPage> {
               width: double.infinity,
               decoration: BoxDecoration(
                   gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-                    Colors.green.shade900,
-                    Colors.green.shade500,
-                    Colors.green.shade400,
-                  ])),
+                Colors.green.shade900,
+                Colors.green.shade500,
+                Colors.green.shade400,
+              ])),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -102,7 +102,7 @@ class _LoginChildPageState extends State<LoginChildPage> {
                           height: 10,
                         ),
                         Text(
-                          "Hệ thống tri ân du khách",
+                          "Hệ thống tri ân tài xế",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ],
@@ -133,7 +133,8 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: const [
                                     BoxShadow(
-                                        color: Color.fromRGBO(171, 171, 171, .7),
+                                        color:
+                                            Color.fromRGBO(171, 171, 171, .7),
                                         blurRadius: 20,
                                         offset: Offset(0, 10)),
                                   ],
@@ -151,8 +152,9 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                         decoration: const InputDecoration(
                                           hintText: "Tên đăng nhập",
                                           hintStyle:
-                                          TextStyle(color: Colors.grey),
-                                          border: InputBorder.none,),
+                                              TextStyle(color: Colors.grey),
+                                          border: InputBorder.none,
+                                        ),
                                         onChanged: (value) {
                                           _cubit.inputAcc(
                                             username: value,
@@ -172,7 +174,7 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                         decoration: const InputDecoration(
                                             hintText: "Mật khẩu",
                                             hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                                TextStyle(color: Colors.grey),
                                             border: InputBorder.none),
                                         onChanged: (value) {
                                           _cubit.inputAcc(
@@ -184,35 +186,73 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                   ],
                                 ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      onTap: () {
+                                        showToast(
+                                          message:
+                                              "Tính năng đang trong giai đoạn phát triển",
+                                          color: Colors.red,
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Quên mật khẩu',
+                                        style: TextStyle(color: Colors.blue),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => CreateAccountPage(
+                                              arguments:
+                                                  CreateAccountArguments(),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Tạo tài khoản',
+                                        style: TextStyle(color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               const SizedBox(height: 40),
                               // #login
                               InkWell(
-                                onTap: () {
-                                  String validate = _cubit.check();
+                                onTap: () async {
+                                  String validate = await _cubit.check();
                                   if (validate.isEmpty) {
                                     showToast(
-                                      message: "Đăng nhập thành công",
-                                      color: Colors.green
-                                    );
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => HomePage(
-                                          arguments: HomeArguments(),
-                                        ),
-                                      ),
-                                    );
+                                        message: "Đăng nhập thành công",
+                                        color: Colors.green);
+                                    _cubit.changePage(context);
                                   } else {
                                     showToast(
-                                        message: validate,
-                                        color: Colors.red
-                                    );
+                                        message: validate, color: Colors.red);
                                   }
                                 },
                                 child: Container(
                                   height: 50,
-                                  margin:
-                                  const EdgeInsets.symmetric(horizontal: 50),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 50),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
                                       color: Colors.green[800]),
