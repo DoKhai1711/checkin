@@ -28,6 +28,16 @@ class PayPage extends StatelessWidget {
     required this.arguments,
   }) : super(key: key);
 
+  static Route route({
+    required PayArguments arguments,
+  }) {
+    return MaterialPageRoute<void>(
+      builder: (_) => PayPage(
+        arguments: arguments,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -56,10 +66,21 @@ class PayChildPage extends StatefulWidget {
 class _PayChildPageState extends State<PayChildPage> {
   late final PayCubit _cubit;
 
+  List<String> list = <String>[
+    '<2 hành khách',
+    '2 - 5 hành khách',
+    '5 - 10 hành khách',
+    '10 - 20 hành khách',
+    '>20 hành khách',
+  ];
+
+  late String dropdownValue;
+
   @override
   void initState() {
     super.initState();
     _cubit = BlocProvider.of(context);
+    dropdownValue = list.first;
     _cubit.loadInitialData();
   }
 
@@ -147,6 +168,24 @@ class _PayChildPageState extends State<PayChildPage> {
                       widget: WidgetCustom.textView(
                           text: state.listAccount![widget.arguments.code][Constant.ADDRESS]
                       ),
+                    ),
+                    WidgetCustom.itemInfo(
+                      title: "Số lượng khách hàng",
+                      widget: DropdownMenu<String>(
+                        initialSelection: list.first,
+                        width: MediaQuery.of(context).size.width-20,
+                        onSelected: (String? value) {
+                          _cubit.setScore(
+                            value: value!,
+                            list: list,
+                          );
+                        },
+                        dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                          return DropdownMenuEntry<String>(value: value, label: value);
+                        }).toList(),
+                      ),
+                      isRequired: true,
+                      isShowDivider: false,
                     ),
                     WidgetCustom.itemInfo(
                       title: "Tiền tri ân",

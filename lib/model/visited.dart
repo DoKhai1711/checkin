@@ -5,6 +5,7 @@ class Visited {
   int? money;
   String? name;
   String? phone;
+  int? score;
 
   Visited({
     this.username,
@@ -13,6 +14,7 @@ class Visited {
     this.money,
     this.name,
     this.phone,
+    this.score,
   });
 
   Visited.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class Visited {
     money = json['money'];
     name = json['name'];
     phone = json['phone'];
+    score = json['score'];
   }
 
   Map<String, dynamic> toJson() {
@@ -32,6 +35,7 @@ class Visited {
     data['money'] = money;
     data['name'] = name;
     data['phone'] = phone;
+    data['score'] = score;
     return data;
   }
 }

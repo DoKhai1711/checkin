@@ -14,23 +14,39 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green.shade500,
-        title: const Text(
-          "Cài đặt",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 1,
-        shadowColor: Colors.black,
-        scrolledUnderElevation: 0,
-        surfaceTintColor: Colors.green.shade500,
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 50,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Image.asset(
+                  "assets/img/Paft.png",
+                  width: 90,
+                  height: 90,
+                ),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              Text(
+                "Cài đặt",
+                style: TextStyle(
+                    color: Colors.green.shade500,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 33),
+              )
+            ],
+          ),
+          SizedBox(height: 40),
+          const Divider(
+            height: 1,
+          ),
           menuItem(
             title: "Chỉnh sửa thông tin",
             icon: const Icon(
@@ -45,38 +61,6 @@ class _SettingPageState extends State<SettingPage> {
                     arguments: EditProfileArguments(),
                   ),
                 ),
-              );
-            },
-          ),
-          const Divider(
-            height: 1,
-          ),
-          menuItem(
-            title: "Rút tiền",
-            icon: const Icon(
-              Icons.attach_money,
-              color: Colors.green,
-            ),
-            onTap: () {
-              showToast(
-                message: "Chức năng này đang trong quá trình phát triển",
-                color: Colors.red,
-              );
-            },
-          ),
-          const Divider(
-            height: 1,
-          ),
-          menuItem(
-            title: "Nạp tiền",
-            icon: const Icon(
-              Icons.money,
-              color: Colors.green,
-            ),
-            onTap: () {
-              showToast(
-                message: "Chức năng này đang trong quá trình phát triển",
-                color: Colors.red,
               );
             },
           ),

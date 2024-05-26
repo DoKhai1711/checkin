@@ -58,6 +58,31 @@ class PayCubit extends Cubit<PayState> {
     );
   }
 
+  void setScore({
+    required String value,
+    required List<String> list,
+  }) {
+    int? score = state.score;
+
+    if (value==list[0]) {
+      score=1;
+    } else if (value==list[1]) {
+      score=2;
+    } else if (value==list[2]) {
+      score=3;
+    } else if (value==list[3]) {
+      score=4;
+    } else if (value==list[4]) {
+      score=5;
+    }
+
+    emit(
+      state.copyWith(
+        score: score,
+      ),
+    );
+  }
+
   String validate() {
     String result = "";
     if ((state.money ?? '').isEmpty) {
@@ -82,6 +107,8 @@ class PayCubit extends Cubit<PayState> {
           .update(<String, dynamic>{
         Constant.MONEY: state.listAccount![state.username!][Constant.MONEY] -
             int.parse(state.money!),
+        Constant.SCORE: state.listAccount![state.username!][Constant.SCORE] -
+            state.score,
       });
 
       ///Tạo lịch sử theo khách hàng
@@ -93,6 +120,7 @@ class PayCubit extends Cubit<PayState> {
           .push()
           .set(<String, dynamic>{
         Constant.MONEY: int.parse(state.money!),
+        Constant.SCORE: state.score,
         Constant.CREATE_DATE: ConvertDate.convertDateTimeToStr(
           date: DateTime.now(),
           type: ConvertDate.dateTimeNormalFull,
@@ -111,6 +139,7 @@ class PayCubit extends Cubit<PayState> {
         Constant.PHONE: state.listAccount![customer][Constant.PHONE],
         Constant.ADDRESS: state.listAccount![customer][Constant.ADDRESS],
         Constant.MONEY: int.parse(state.money!),
+        Constant.SCORE: state.score,
         Constant.CREATE_DATE: ConvertDate.convertDateTimeToStr(
           date: DateTime.now(),
           type: ConvertDate.dateTimeNormalFull,
@@ -125,6 +154,7 @@ class PayCubit extends Cubit<PayState> {
           Constant.PHONE: state.listAccount![customer][Constant.PHONE],
           Constant.ADDRESS: state.listAccount![customer][Constant.ADDRESS],
           Constant.MONEY: int.parse(state.money!),
+          Constant.SCORE: state.score,
           Constant.CREATE_DATE: ConvertDate.convertDateTimeToStr(
             date: DateTime.now(),
             type: ConvertDate.dateTimeNormalFull,
@@ -136,6 +166,8 @@ class PayCubit extends Cubit<PayState> {
       await db.child(Constant.ACCOUNT).child(customer).update({
         Constant.MONEY: state.listAccount![customer][Constant.MONEY] +
             int.parse(state.money!),
+        Constant.SCORE: state.listAccount![customer][Constant.SCORE] +
+            state.score,
       });
 
       ///Tạo lịch sử theo chủ cửa hàng
@@ -147,6 +179,7 @@ class PayCubit extends Cubit<PayState> {
           .push()
           .set(<String, dynamic>{
         Constant.MONEY: int.parse(state.money!),
+        Constant.SCORE: state.score,
         Constant.CREATE_DATE: ConvertDate.convertDateTimeToStr(
           date: DateTime.now(),
           type: ConvertDate.dateTimeNormalFull,
@@ -165,6 +198,7 @@ class PayCubit extends Cubit<PayState> {
         Constant.PHONE: state.listAccount![state.username][Constant.PHONE],
         Constant.ADDRESS: state.listAccount![state.username][Constant.ADDRESS],
         Constant.MONEY: int.parse(state.money!),
+        Constant.SCORE: state.score,
         Constant.CREATE_DATE: ConvertDate.convertDateTimeToStr(
           date: DateTime.now(),
           type: ConvertDate.dateTimeNormalFull,
@@ -180,6 +214,7 @@ class PayCubit extends Cubit<PayState> {
           Constant.ADDRESS: state.listAccount![state.username]
               [Constant.ADDRESS],
           Constant.MONEY: int.parse(state.money!),
+          Constant.SCORE: state.score,
           Constant.CREATE_DATE: ConvertDate.convertDateTimeToStr(
             date: DateTime.now(),
             type: ConvertDate.dateTimeNormalFull,

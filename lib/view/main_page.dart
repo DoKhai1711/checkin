@@ -5,6 +5,7 @@ import 'package:untitled/view/pay/pay_page.dart';
 import 'package:untitled/view/profile/setting_page.dart';
 import 'package:untitled/view/statistical/statistical_page.dart';
 import 'package:untitled/view/statistical_employee/statistical_employee_page.dart';
+import 'package:untitled/view/wallet/wallet_page.dart';
 import 'package:untitled/widget/scan_qr.dart';
 
 class MainPage extends StatefulWidget {
@@ -53,13 +54,6 @@ class _MainPageState extends State<MainPage> {
               ),
               label: 'Thống kê',
             ),
-          ] else ...[
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.qr_code_scanner,
-              ),
-              label: 'Quét mã',
-            ),
           ],
           if (widget.type == Constant.EMPLOYEE) ...[
             const BottomNavigationBarItem(
@@ -69,6 +63,12 @@ class _MainPageState extends State<MainPage> {
               label: 'Thống kê',
             ),
           ],
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.wallet,
+            ),
+            label: 'Ví điện tử',
+          ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Cài đặt',
@@ -84,6 +84,14 @@ Widget _bodyCustomerWidget(int index) {
     return HomePage(arguments: HomeArguments());
   } else if (index == 1) {
     return StatisticalPage(arguments: StatisticalArguments());
+    // return PayPage(
+    //   arguments: PayArguments(
+    //       code: 'thien'
+    //   ),
+    // );
+  } if (index == 2) {
+    return WalletPage(arguments: WalletArguments());
+
   } else {
     return const SettingPage();
   }
@@ -93,9 +101,9 @@ Widget _bodyEmployeeWidget(int index) {
   if (index == 0) {
     return HomePage(arguments: HomeArguments());
   } else if (index == 1) {
-    return const ScanQRWidget();
-  } else if (index == 2) {
     return StatisticalEmployeePage(arguments: StatisticalEmployeeArguments());
+  } else if (index == 2) {
+    return WalletPage(arguments: WalletArguments());
   } else {
     return const SettingPage();
   }

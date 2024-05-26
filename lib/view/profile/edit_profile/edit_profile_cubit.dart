@@ -36,7 +36,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
             password: profile[Constant.PASS],
             address: profile[Constant.ADDRESS],
             phone: profile[Constant.PHONE],
-            money: profile[Constant.MONEY].toString(),
             listPhoneNumber: listPhoneNumber,
           ),
         );
@@ -51,12 +50,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     String? passwordInput,
     String? addressInput,
     String? phoneInput,
-    String? moneyInput,
   }) {
     String? password = state.password;
     String? address = state.address;
     String? phone = state.phone;
-    String? money = state.money;
 
     if (passwordInput != null) {
       password = passwordInput;
@@ -70,16 +67,11 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       phone = phoneInput;
     }
 
-    if (moneyInput != null) {
-      money = moneyInput;
-    }
-
     emit(
       state.copyWith(
         password: password,
         address: address,
         phone: phone,
-        money: money,
       ),
     );
   }
@@ -100,9 +92,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         state.phone != state.profile![Constant.PHONE]) {
       result = "Số điện thoại đã đuợc đăng ký";
     }
-    if ((state.money ?? '').isEmpty) {
-      result = "Nhập số tiền";
-    }
     return result;
   }
 
@@ -114,7 +103,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         Constant.PASS: state.password,
         Constant.PHONE: state.phone,
         Constant.ADDRESS: state.address,
-        Constant.MONEY: int.parse(state.money!),
       });
 
       await db.child(Constant.PHONE_NUMBER).update({

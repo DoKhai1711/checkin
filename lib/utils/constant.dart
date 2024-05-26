@@ -18,7 +18,11 @@ class Constant {
   static const HISTORY_CUSTOMER = "history_customer";
   static const MONEY_PAY = "money_pay";
   static const VISITED = "visited";
+  static const SCORE = "score";
 
   static const CUSTOMER = "customer";
   static const EMPLOYEE = "employee";
+
+  static const RECHARGE = "recharge";
+  static const WITHDRAW = "withdraw";
 }

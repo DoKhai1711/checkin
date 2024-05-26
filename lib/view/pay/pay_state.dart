@@ -7,6 +7,7 @@ class PayState extends Equatable {
   final bool changeData;
   final String? money;
   final String? username;
+  final int score;
 
   const PayState({
     this.loadDataStatus = LoadStatus.initial,
@@ -15,6 +16,7 @@ class PayState extends Equatable {
     this.listAccount,
     this.money,
     this.username,
+    this.score = 1,
   });
 
   @override
@@ -25,6 +27,7 @@ class PayState extends Equatable {
         changeData,
         money,
         username,
+        score,
       ];
 
   PayState copyWith({
@@ -34,6 +37,7 @@ class PayState extends Equatable {
     bool? changeData,
     String? money,
     String? username,
+    int? score,
   }) {
     return PayState(
       loadDataStatus: loadDataStatus ?? this.loadDataStatus,
@@ -42,6 +46,7 @@ class PayState extends Equatable {
       listAccount: listAccount ?? this.listAccount,
       money: money ?? this.money,
       username: username ?? this.username,
+      score: score ?? this.score,
     );
   }
 }

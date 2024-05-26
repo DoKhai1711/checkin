@@ -102,6 +102,12 @@ class AppTheme {
   static final borderTable = Color(0xFFB9B9B9);
   static final statusBar = Color(0xFFEEF5FF);
 
+  static final green_1 = Color(0xFFe8f1ec);
+  static final green_2 = Color(0xFFacccb7);
+  static final green_3 = Color(0xFF61a477);
+  static final green_text = Color(0xFF46825a);
+
+
   static const List<Color> backgroundAppbar = [
     Color(0xFF232F3F),
     Color(0xFF2C3B50),

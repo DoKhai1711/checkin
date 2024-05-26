@@ -181,28 +181,6 @@ class _EditProfileChildPageState extends State<EditProfileChildPage> {
                       isRequired: true,
                       isShowDivider: false,
                     ),
-                    WidgetCustom.itemInfo(
-                      title: "Số tiền",
-                      hasIcon: false,
-                      widget: WidgetCustom.textField(
-                        hintText: 'Số tiền',
-                        initialValue: state.profile![Constant.MONEY].toString(),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(Constant.TYPE_REGEXP_PHONE_NUMBER),
-                          ),
-                        ],
-                        maxLength: 10,
-                        onChange: (value) {
-                          _cubit.onChangeData(
-                            moneyInput: value.trim(),
-                          );
-                        },
-                      ),
-                      isRequired: true,
-                      isShowDivider: false,
-                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: PrimaryButton(

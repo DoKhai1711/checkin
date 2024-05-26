@@ -1,10 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/utils/app_theme.dart';
 import 'package:untitled/utils/empty_list_widget.dart';
 import 'package:untitled/utils/enum.dart';
 import 'package:untitled/utils/loading_indicator.dart';
 import 'package:untitled/utils/show_message.dart';
+import 'package:untitled/utils/utils.dart';
 import 'package:untitled/view/create_account/create_account_page.dart';
+import 'package:untitled/widget/widget_custom.dart';
 
 import 'login_cubit.dart';
 
@@ -76,209 +81,220 @@ class _LoginChildPageState extends State<LoginChildPage> {
               ],
             );
           } else {
-            return Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-                Colors.green.shade900,
-                Colors.green.shade500,
-                Colors.green.shade400,
-              ])),
+            return SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 80),
-                  // #login, #welcome
-                  const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Đăng nhập",
-                          style: TextStyle(color: Colors.white, fontSize: 40),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Hệ thống tri ân tài xế",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                      ],
+                  SizedBox(height: MediaQuery.of(context).size.height * 1 / 10),
+                  Center(
+                    child: Image.asset(
+                      "assets/img/Paft.png",
+                      width: MediaQuery.of(context).size.width * 1 / 2,
+                      height: MediaQuery.of(context).size.width * 1 / 2,
                     ),
                   ),
-                  const SizedBox(height: 20),
-
-                  Expanded(
+                  Center(
                     child: Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(60),
-                            topRight: Radius.circular(60)),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 25),
+                      height: 350,
+                      decoration: BoxDecoration(
+                        color: AppTheme.green_1,
+                        borderRadius: BorderRadius.circular(24),
                       ),
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 40, bottom: 20),
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: AppTheme.green_2,
+                                borderRadius: BorderRadius.circular(24),
                               ),
-                              // #email, #password
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color:
-                                            Color.fromRGBO(171, 171, 171, .7),
-                                        blurRadius: 20,
-                                        offset: Offset(0, 10)),
-                                  ],
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 10),
+                              child: TextFormField(
+                                cursorColor:
+                                AppTheme.blackText.withOpacity(0.5),
+                                style: TextStyle(color: Colors.green.shade700),
+                                inputFormatters: Utils.getInputFormatters(
+                                  maxLength: 255,
+                                  inputFormatters: null,
                                 ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: Colors.grey.shade200)),
-                                      ),
-                                      child: TextField(
-                                        decoration: const InputDecoration(
-                                          hintText: "Tên đăng nhập",
-                                          hintStyle:
-                                              TextStyle(color: Colors.grey),
-                                          border: InputBorder.none,
-                                        ),
-                                        onChanged: (value) {
-                                          _cubit.inputAcc(
-                                            username: value,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: Colors.grey.shade200)),
-                                      ),
-                                      child: TextField(
-                                        obscureText: true,
-                                        decoration: const InputDecoration(
-                                            hintText: "Mật khẩu",
-                                            hintStyle:
-                                                TextStyle(color: Colors.grey),
-                                            border: InputBorder.none),
-                                        onChanged: (value) {
-                                          _cubit.inputAcc(
-                                            password: value,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      onTap: () {
-                                        showToast(
-                                          message:
-                                              "Tính năng đang trong giai đoạn phát triển",
-                                          color: Colors.red,
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Quên mật khẩu',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => CreateAccountPage(
-                                              arguments:
-                                                  CreateAccountArguments(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text(
-                                        'Tạo tài khoản',
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 40),
-                              // #login
-                              InkWell(
-                                onTap: () async {
-                                  String validate = await _cubit.check();
-                                  if (validate.isEmpty) {
-                                    showToast(
-                                        message: "Đăng nhập thành công",
-                                        color: Colors.green);
-                                    _cubit.changePage(context);
-                                  } else {
-                                    showToast(
-                                        message: validate, color: Colors.red);
-                                  }
+                                onChanged: (value) {
+                                  _cubit.inputAcc(
+                                    username: value,
+                                  );
                                 },
-                                child: Container(
-                                  height: 50,
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 50),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: Colors.green[800]),
-                                  child: const Center(
-                                    child: Text(
-                                      "Login",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                    10.0,
+                                    10.0,
+                                    20.0,
+                                    10.0,
+                                  ),
+                                  hintText: 'Tên đăng nhập',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(4),
                                     ),
+                                    borderSide: BorderSide(
+                                      color: Colors.red,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  disabledBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 0, bottom: 20),
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: AppTheme.green_2,
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: TextFormField(
+                                cursorColor:
+                                    AppTheme.blackText.withOpacity(0.5),
+                                style: TextStyle(color: Colors.green.shade700),
+                                inputFormatters: Utils.getInputFormatters(
+                                  maxLength: 255,
+                                  inputFormatters: null,
+                                ),
+                                onChanged: (value) {
+                                  _cubit.inputAcc(
+                                    password: value,
+                                  );
+                                },
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                    10.0,
+                                    10.0,
+                                    20.0,
+                                    10.0,
+                                  ),
+                                  hintText: 'Mật khẩu',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(4),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.red,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  disabledBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              bottom: 10,
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onTap: () {
+                                showToast(
+                                  message:
+                                      "Tính năng đang trong giai đoạn phát triển",
+                                  color: Colors.red,
+                                );
+                              },
+                              child: Text(
+                                'Quên mật khẩu',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.green.shade700,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              bottom: 10,
+                            ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => CreateAccountPage(
+                                      arguments: CreateAccountArguments(),
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'Tạo tài khoản mới',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.green.shade700,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          InkWell(
+                            onTap: () async {
+                              String validate = await _cubit.check();
+                              if (validate.isEmpty) {
+                                showToast(
+                                    message: "Đăng nhập thành công",
+                                    color: Colors.green);
+                                _cubit.changePage(context);
+                              } else {
+                                showToast(
+                                    message: validate, color: Colors.red);
+                              }
+                            },
+                            child: Container(
+                              height: 50,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 50),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.green[800]),
+                              child: const Center(
+                                child: Text(
+                                  "Đăng nhập",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 30),
-                              const Text(
-                                "Design by TruTien171",
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             );

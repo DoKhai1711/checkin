@@ -117,6 +117,7 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
           Constant.TYPE: state.type,
           Constant.NAME: state.name,
           Constant.MONEY: 0,
+          Constant.SCORE: 0,
         }
       });
 

@@ -248,20 +248,35 @@ class _DetailStatisticalChildPageState
                   title: data.createDate ?? '',
                   widget: Padding(
                     padding: const EdgeInsets.only(left: 16),
-                    child: Row(
+                    child: Column(
                       children: [
-                        Text(
-                          state.profile![Constant.TYPE] == Constant.EMPLOYEE
-                              ? "${Utils.roundingNumberInteger(number: data.money) ?? ''}đ"
-                              : "${Utils.roundingNumberInteger(number: data.money) ?? ''}đ",
-                          style: TextStyle(
-                            color: state.profile![Constant.TYPE] ==
-                                    Constant.EMPLOYEE
-                                ? Colors.green
-                                : Colors.red,
-                            fontSize: 20,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              "${Utils.roundingNumberInteger(number: data.money) ?? ''}đ",
+                              style: TextStyle(
+                                color: state.profile![Constant.TYPE] ==
+                                        Constant.EMPLOYEE
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
                         ),
+                        if (state.profile![Constant.TYPE] == Constant.EMPLOYEE) ...[
+                          Row(
+                            children: [
+                              Text(
+                                "${Utils.roundingNumberInteger(number: data.score) ?? ''} điểm",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]
                       ],
                     ),
                   ),
