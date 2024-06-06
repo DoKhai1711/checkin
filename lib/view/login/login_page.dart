@@ -94,15 +94,17 @@ class _LoginChildPageState extends State<LoginChildPage> {
                       Center(
                         child: Image.asset(
                           "assets/img/Paft.png",
-                          width: MediaQuery.of(context).size.width * 1 / 2,
-                          height: MediaQuery.of(context).size.width * 1 / 2,
+                          width: 200,
+                          height: 200,
                         ),
                       ),
                       Center(
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 25),
+                          padding: const EdgeInsets.symmetric(horizontal: 25),
                           height: 350,
+                          width: 600,
                           decoration: BoxDecoration(
                             color: AppTheme.green_1,
                             borderRadius: BorderRadius.circular(24),

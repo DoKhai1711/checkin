@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/utils/constant.dart';
+import 'package:untitled/view/detail_statistical/detail_statistical_page.dart';
 import 'package:untitled/view/home/home_page.dart';
+import 'package:untitled/view/home_web/home_web_page.dart';
 import 'package:untitled/view/pay/pay_page.dart';
 import 'package:untitled/view/profile/setting_page.dart';
 import 'package:untitled/view/statistical/statistical_page.dart';
@@ -26,9 +28,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.type == Constant.CUSTOMER
-          ? _bodyCustomerWidget(indexPage)
-          : _bodyEmployeeWidget(indexPage),
+      body: _bodyEmployeeWidget(indexPage),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 12,
         unselectedFontSize: 12,
@@ -40,37 +40,23 @@ class _MainPageState extends State<MainPage> {
             indexPage = index;
           });
         },
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
             ),
             label: 'Trang chủ',
           ),
-          if (widget.type == Constant.CUSTOMER) ...[
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.list_alt,
-              ),
-              label: 'Thống kê',
-            ),
-          ],
-          if (widget.type == Constant.EMPLOYEE) ...[
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.list_alt,
-              ),
-              label: 'Thống kê',
-            ),
-          ],
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
-              Icons.wallet,
+              Icons.list_alt,
             ),
-            label: 'Ví điện tử',
+            label: 'Thống kê',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+            ),
             label: 'Cài đặt',
           )
         ],
@@ -89,9 +75,9 @@ Widget _bodyCustomerWidget(int index) {
     //       code: 'thien'
     //   ),
     // );
-  } if (index == 2) {
+  }
+  if (index == 2) {
     return WalletPage(arguments: WalletArguments());
-
   } else {
     return const SettingPage();
   }
@@ -99,11 +85,11 @@ Widget _bodyCustomerWidget(int index) {
 
 Widget _bodyEmployeeWidget(int index) {
   if (index == 0) {
-    return HomePage(arguments: HomeArguments());
+    return HomeWebPage(
+      arguments: HomeWebArguments(),
+    );
   } else if (index == 1) {
     return StatisticalEmployeePage(arguments: StatisticalEmployeeArguments());
-  } else if (index == 2) {
-    return WalletPage(arguments: WalletArguments());
   } else {
     return const SettingPage();
   }

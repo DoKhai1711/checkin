@@ -56,13 +56,18 @@ class LoginCubit extends Cubit<LoginState> {
         return "Bạn chưa nhập Mật khẩu";
       }
       if (state.listAcc?[state.username]?[Constant.PASS] == state.password) {
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.setString(
-          Constant.USER_NAME,
-          state.username ?? '',
-        );
-        return "";
+
+        if (state.listAcc?[state.username][Constant.TYPE] == Constant.EMPLOYEE) {
+          SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+          sharedPreferences.setString(
+            Constant.USER_NAME,
+            state.username ?? '',
+          );
+          return "";
+        } else {
+          return "Tên đăng nhập hoặc mật khẩu không đúng";
+        }
       } else {
         return "Tên đăng nhập hoặc mật khẩu không đúng";
       }
