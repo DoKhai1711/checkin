@@ -208,7 +208,7 @@ class _CreateAccountChildPageState extends State<CreateAccountChildPage> {
                         children: [
                           ListTile(
                             title: const Text(
-                              "Du khách",
+                              "Người dẫn đoàn",
                               style: AppTheme.blackS18W400,
                             ),
                             leading: Radio(

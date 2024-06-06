@@ -183,7 +183,7 @@ class WidgetCustom {
     String? initialValue,
     List<TextInputFormatter>? inputFormatters,
   }) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 14,
         vertical: 8,
