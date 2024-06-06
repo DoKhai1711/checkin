@@ -546,6 +546,7 @@ class _HomeChildPageState extends State<HomeChildPage> {
       // });
       if (isFirst) {
         isFirst = false;
+        _cubit.setCustomerNow(event.code!);
         final result = await Navigator.push(
           context,
           PayPage.route(

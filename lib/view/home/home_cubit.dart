@@ -67,4 +67,13 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
   }
+
+  void setCustomerNow(String account) async {
+    await db.child(Constant.ACCOUNT).update({
+      state.username!: {
+        "customerNow": account,
+      }
+    });
+  }
+
 }
