@@ -69,10 +69,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void setCustomerNow(String account) async {
-    await db.child(Constant.ACCOUNT).update({
-      state.username!: {
-        "customerNow": account,
-      }
+    await db.child(Constant.ACCOUNT).child(state.username!).update({
+      "customerNow": account,
     });
   }
 
