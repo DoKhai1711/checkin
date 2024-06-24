@@ -81,157 +81,170 @@ class _StatisticalEmployeeChildPageState
             ],
           );
         } else {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Stack(
             children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Image.asset(
-                      "assets/img/Paft.png",
-                      width: 90,
-                      height: 90,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    "Thống kê",
-                    style: TextStyle(
-                        color: Colors.green.shade500,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 33),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 20, bottom: 20),
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: AppTheme.green_2,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppTheme.green_3,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 14,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 4,
-                              bottom: 8,
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Số lần dẫn đoàn',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 4,
-                            bottom: 8,
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              '${(state.listHistory ?? []).length}',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: AppTheme.green_text,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              Opacity(
+                opacity: 0.6,
+                child: Image.asset(
+                  "assets/img/bg_sapa.jpg",
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
                 ),
               ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: AppTheme.green_2,
-                    borderRadius: BorderRadius.circular(24),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 50,
                   ),
-                  child: Column(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 15),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.list_alt,
-                              color: AppTheme.green_text,
-                              size: 48,
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Image.asset(
+                          "assets/img/Paft.png",
+                          width: 90,
+                          height: 90,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      Text(
+                        "Thống kê",
+                        style: TextStyle(
+                            color: Colors.green.shade500,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 33),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 20, bottom: 20),
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: AppTheme.green_2,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppTheme.green_3,
+                              borderRadius: BorderRadius.circular(24),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
                                 horizontal: 14,
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 8,
+                                padding: EdgeInsets.only(
+                                  top: 4,
                                   bottom: 8,
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Lịch sử dẫn đoàn',
+                                    'Số lần dẫn đoàn',
                                     style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppTheme.green_text,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 4,
+                                bottom: 8,
+                              ),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  '${(state.listHistory ?? []).length}',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppTheme.green_text,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: (state.listHistory ?? []).length,
-                          itemBuilder: (context, index) {
-                            return _visited(
-                              data: state.listHistory![
-                              state.listHistory!.length - index - 1],
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: AppTheme.green_2,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, top: 15),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.list_alt,
+                                  color: AppTheme.green_text,
+                                  size: 48,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 8,
+                                      bottom: 8,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Lịch sử dẫn đoàn',
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppTheme.green_text,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: (state.listHistory ?? []).length,
+                              itemBuilder: (context, index) {
+                                return _visited(
+                                  data: state.listHistory![
+                                  state.listHistory!.length - index - 1],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           );

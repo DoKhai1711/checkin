@@ -103,125 +103,138 @@ class _DetailStatisticalChildPageState
             ],
           );
         } else {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          return Stack(
             children: [
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Tổng quan',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF141ED2),
-                        ),
-                      ),
-                    ),
-                  ],
+              Opacity(
+                opacity: 0.5,
+                child: Image.asset(
+                  "assets/img/bg_sapa.jpg",
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
                 ),
               ),
-              WidgetCustom.cardCustom(
-                widget: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.person_rounded,
-                              color: Colors.blue,
-                            ),
-                            WidgetCustom.textView(
-                              text: "${state.profile!['name']}",
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.phone_android,
-                              color: Colors.pink,
-                            ),
-                            WidgetCustom.textView(
-                              text: "${state.profile!['phone']}",
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.car_crash,
-                              color: Colors.blue,
-                            ),
-                            WidgetCustom.textView(
-                              text:
-                                  "Số lần ghé thăm: ${(state.listHistory ?? []).length}",
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.payments,
-                              color: Colors.green,
-                            ),
-                            WidgetCustom.textView(
-                              text:
-                                  "Tiền tri ân: ${Utils.roundingNumberInteger(number: state.totalMoney)}đ",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Lịch sử ghé thăm',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF141ED2),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Tổng quan',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF141ED2),
+                            ),
+                          ),
                         ),
+                      ],
+                    ),
+                  ),
+                  WidgetCustom.cardCustom(
+                    widget: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.person_rounded,
+                                  color: Colors.blue,
+                                ),
+                                WidgetCustom.textView(
+                                  text: "${state.profile!['name']}",
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.phone_android,
+                                  color: Colors.pink,
+                                ),
+                                WidgetCustom.textView(
+                                  text: "${state.profile!['phone']}",
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.car_crash,
+                                  color: Colors.blue,
+                                ),
+                                WidgetCustom.textView(
+                                  text:
+                                      "Số lần ghé thăm: ${(state.listHistory ?? []).length}",
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.payments,
+                                  color: Colors.green,
+                                ),
+                                WidgetCustom.textView(
+                                  text:
+                                      "Tiền tri ân: ${Utils.roundingNumberInteger(number: state.totalMoney)}đ",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: (state.listHistory ?? []).length,
-                  itemBuilder: (context, index) {
-                    return _visited(
-                      data: state
-                          .listHistory![state.listHistory!.length - index - 1],
-                    );
-                  },
-                ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Lịch sử ghé thăm',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF141ED2),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: (state.listHistory ?? []).length,
+                      itemBuilder: (context, index) {
+                        return _visited(
+                          data: state
+                              .listHistory![state.listHistory!.length - index - 1],
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           );

@@ -94,371 +94,384 @@ class _HomeChildPageState extends State<HomeChildPage> {
             ],
           );
         } else {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 50,
+          return Stack(
+            children: [
+              Opacity(
+                opacity: 0.5,
+                child: Image.asset(
+                  "assets/img/bg_sapa.jpg",
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Image.asset(
-                        "assets/img/Paft.png",
-                        width: 90,
-                        height: 90,
-                      ),
-                    ),
                     const SizedBox(
-                      width: 30,
-                    ),
-                    Text(
-                      "Trang chủ",
-                      style: TextStyle(
-                          color: Colors.green.shade500,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 33),
-                    )
-                  ],
-                ),
-                if (state.profile![Constant.TYPE] == Constant.CUSTOMER) ...[
-                  const SizedBox(height: 10),
-                  WidgetCustom.cardCustom(
-                    widget: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30),
-                        child: QrImageView(
-                          data: state.username!,
-                          version: QrVersions.auto,
-                          size: MediaQuery.of(context).size.width * 6 / 10,
-                        ),
-                      ),
-                    ),
-                  ),
-                ] else ...[
-                  const SizedBox(height: 30),
-                  SizedBox(
-                    height: 400,
-                    child: QRView(
-                      key: qrKey,
-                      onQRViewCreated: _onQRViewCreated,
-                    ),
-                  ),
-                ],
-                // const Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 16),
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         child: Text(
-                //           'Thông tin cá nhân',
-                //           style: TextStyle(
-                //             fontSize: 18,
-                //             fontWeight: FontWeight.w400,
-                //             color: Color(0xFF141ED2),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 0, bottom: 20),
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppTheme.green_2,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 130,
-                          decoration: BoxDecoration(
-                            color: AppTheme.green_3,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 14,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 4,
-                                bottom: 8,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Họ và tên',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 4,
-                              bottom: 8,
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                '${state.profile!['name']}',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppTheme.green_text,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 10, top: 0, bottom: 20),
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppTheme.green_2,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppTheme.green_3,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 14,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: 4,
-                                bottom: 8,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Số điện thoại',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 4,
-                              bottom: 8,
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                '${state.profile!['phone']}',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppTheme.green_text,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                if (state.profile![Constant.TYPE] == Constant.CUSTOMER) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 0, bottom: 20),
-                    child: Container(
                       height: 50,
-                      decoration: BoxDecoration(
-                        color: AppTheme.green_2,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: AppTheme.green_3,
-                              borderRadius: BorderRadius.circular(24),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Image.asset(
+                            "assets/img/Paft.png",
+                            width: 90,
+                            height: 90,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Text(
+                          "Trang chủ",
+                          style: TextStyle(
+                              color: Colors.green.shade500,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 33),
+                        )
+                      ],
+                    ),
+                    if (state.profile![Constant.TYPE] == Constant.CUSTOMER) ...[
+                      const SizedBox(height: 10),
+                      WidgetCustom.cardCustom(
+                        widget: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 30),
+                            child: QrImageView(
+                              data: state.username!,
+                              version: QrVersions.auto,
+                              size: MediaQuery.of(context).size.width * 7 / 10,
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
+                          ),
+                        ),
+                      ),
+                    ] else ...[
+                      const SizedBox(height: 30),
+                      SizedBox(
+                        height: 400,
+                        child: QRView(
+                          key: qrKey,
+                          onQRViewCreated: _onQRViewCreated,
+                        ),
+                      ),
+                    ],
+                    // const Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 16),
+                    //   child: Row(
+                    //     children: [
+                    //       Expanded(
+                    //         child: Text(
+                    //           'Thông tin cá nhân',
+                    //           style: TextStyle(
+                    //             fontSize: 18,
+                    //             fontWeight: FontWeight.w400,
+                    //             color: Color(0xFF141ED2),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 0, bottom: 20),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppTheme.green_2,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 130,
+                              decoration: BoxDecoration(
+                                color: AppTheme.green_3,
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 4,
+                                    bottom: 8,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Họ và tên',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 14,
                               ),
                               child: Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                   top: 4,
                                   bottom: 8,
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'Điểm tích luỹ',
+                                    '${state.profile!['name']}',
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.white,
+                                      color: AppTheme.green_text,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                top: 4,
-                                bottom: 8,
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 0, bottom: 20),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppTheme.green_2,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: AppTheme.green_3,
+                                borderRadius: BorderRadius.circular(24),
                               ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  '${state.profile!['score']}',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppTheme.green_text,
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 4,
+                                    bottom: 8,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Số điện thoại',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 4,
+                                  bottom: 8,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    '${state.profile!['phone']}',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppTheme.green_text,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-                // WidgetCustom.cardCustom(
-                //   widget: Padding(
-                //     padding: const EdgeInsets.symmetric(vertical: 10),
-                //     child: Column(
-                //       mainAxisSize: MainAxisSize.min,
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Padding(
-                //           padding: const EdgeInsets.only(left: 10),
-                //           child: Row(
-                //             children: [
-                //               const Icon(
-                //                 Icons.person_rounded,
-                //                 color: Colors.blue,
-                //               ),
-                //               WidgetCustom.textView(
-                //                 text: "${state.profile!['name']}",
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.only(left: 10),
-                //           child: Row(
-                //             children: [
-                //               const Icon(
-                //                 Icons.phone_android,
-                //                 color: Colors.pink,
-                //               ),
-                //               WidgetCustom.textView(
-                //                 text: "${state.profile!['phone']}",
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //         Padding(
-                //           padding: const EdgeInsets.only(left: 10),
-                //           child: Row(
-                //             children: [
-                //               const Icon(
-                //                 Icons.payments,
-                //                 color: Colors.green,
-                //               ),
-                //               WidgetCustom.textView(
-                //                 text: state.isShowMoney
-                //                     ? "${Utils.roundingNumberInteger(number: state.profile!['money'])}đ"
-                //                     : "******",
-                //               ),
-                //               Expanded(
-                //                 child: Align(
-                //                   alignment: Alignment.centerRight,
-                //                   child: Padding(
-                //                     padding: const EdgeInsets.only(right: 16.0),
-                //                     child: InkWell(
-                //                       splashColor: Colors.transparent,
-                //                       focusColor: Colors.transparent,
-                //                       highlightColor: Colors.transparent,
-                //                       hoverColor: Colors.transparent,
-                //                       onTap: () {
-                //                         _cubit.changeIsShowMoney();
-                //                       },
-                //                       child: const Icon(Icons.remove_red_eye),
-                //                     ),
-                //                   ),
-                //                 ),
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         child: Text(
-                //           state.profile![Constant.TYPE] == Constant.CUSTOMER
-                //               ? 'Địa điểm ghé thăm gần nhất'
-                //               : 'Tài xế ghé thăm gần nhất',
-                //           style: const TextStyle(
-                //             fontSize: 18,
-                //             fontWeight: FontWeight.w400,
-                //             color: Color(0xFF141ED2),
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // _lastVisited(),
-              ],
-            ),
+                    if (state.profile![Constant.TYPE] == Constant.CUSTOMER) ...[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 10, top: 0, bottom: 20),
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: AppTheme.green_2,
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppTheme.green_3,
+                                  borderRadius: BorderRadius.circular(24),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 4,
+                                      bottom: 8,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Điểm tích luỹ',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 4,
+                                    bottom: 8,
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      '${state.profile!['score']}',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppTheme.green_text,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                    // WidgetCustom.cardCustom(
+                    //   widget: Padding(
+                    //     padding: const EdgeInsets.symmetric(vertical: 10),
+                    //     child: Column(
+                    //       mainAxisSize: MainAxisSize.min,
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(left: 10),
+                    //           child: Row(
+                    //             children: [
+                    //               const Icon(
+                    //                 Icons.person_rounded,
+                    //                 color: Colors.blue,
+                    //               ),
+                    //               WidgetCustom.textView(
+                    //                 text: "${state.profile!['name']}",
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(left: 10),
+                    //           child: Row(
+                    //             children: [
+                    //               const Icon(
+                    //                 Icons.phone_android,
+                    //                 color: Colors.pink,
+                    //               ),
+                    //               WidgetCustom.textView(
+                    //                 text: "${state.profile!['phone']}",
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(left: 10),
+                    //           child: Row(
+                    //             children: [
+                    //               const Icon(
+                    //                 Icons.payments,
+                    //                 color: Colors.green,
+                    //               ),
+                    //               WidgetCustom.textView(
+                    //                 text: state.isShowMoney
+                    //                     ? "${Utils.roundingNumberInteger(number: state.profile!['money'])}đ"
+                    //                     : "******",
+                    //               ),
+                    //               Expanded(
+                    //                 child: Align(
+                    //                   alignment: Alignment.centerRight,
+                    //                   child: Padding(
+                    //                     padding: const EdgeInsets.only(right: 16.0),
+                    //                     child: InkWell(
+                    //                       splashColor: Colors.transparent,
+                    //                       focusColor: Colors.transparent,
+                    //                       highlightColor: Colors.transparent,
+                    //                       hoverColor: Colors.transparent,
+                    //                       onTap: () {
+                    //                         _cubit.changeIsShowMoney();
+                    //                       },
+                    //                       child: const Icon(Icons.remove_red_eye),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                    //   child: Row(
+                    //     children: [
+                    //       Expanded(
+                    //         child: Text(
+                    //           state.profile![Constant.TYPE] == Constant.CUSTOMER
+                    //               ? 'Địa điểm ghé thăm gần nhất'
+                    //               : 'Tài xế ghé thăm gần nhất',
+                    //           style: const TextStyle(
+                    //             fontSize: 18,
+                    //             fontWeight: FontWeight.w400,
+                    //             color: Color(0xFF141ED2),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // _lastVisited(),
+                  ],
+                ),
+              ),
+            ],
           );
         }
       },

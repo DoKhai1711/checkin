@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/utils/show_message.dart';
 import 'package:untitled/view/login/login_page.dart';
 import 'package:untitled/view/profile/edit_profile/edit_profile_page.dart';
 
@@ -14,76 +13,89 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          const SizedBox(
-            height: 50,
+          Opacity(
+            opacity: 0.6,
+            child: Image.asset(
+              "assets/img/bg_sapa.jpg",
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+            ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Image.asset(
-                  "assets/img/Paft.png",
-                  width: 90,
-                  height: 90,
-                ),
-              ),
               const SizedBox(
-                width: 30,
+                height: 50,
               ),
-              Text(
-                "Cài đặt",
-                style: TextStyle(
-                    color: Colors.green.shade500,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 33),
-              )
-            ],
-          ),
-          SizedBox(height: 40),
-          const Divider(
-            height: 1,
-          ),
-          menuItem(
-            title: "Chỉnh sửa thông tin",
-            icon: const Icon(
-              Icons.person,
-              color: Colors.blue,
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EditProfilePage(
-                    arguments: EditProfileArguments(),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Image.asset(
+                      "assets/img/Paft.png",
+                      width: 90,
+                      height: 90,
+                    ),
                   ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    "Cài đặt",
+                    style: TextStyle(
+                        color: Colors.green.shade500,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 33),
+                  )
+                ],
+              ),
+              SizedBox(height: 40),
+              const Divider(
+                height: 1,
+              ),
+              menuItem(
+                title: "Chỉnh sửa thông tin",
+                icon: const Icon(
+                  Icons.person,
+                  color: Colors.blue,
                 ),
-              );
-            },
-          ),
-          const Divider(
-            height: 1,
-          ),
-          menuItem(
-            title: "Đăng xuất",
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.red,
-            ),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(arguments: LoginArguments()),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditProfilePage(
+                        arguments: EditProfileArguments(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const Divider(
+                height: 1,
+              ),
+              menuItem(
+                title: "Đăng xuất",
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.red,
                 ),
-              );
-            },
-          ),
-          const Divider(
-            height: 1,
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(arguments: LoginArguments()),
+                    ),
+                  );
+                },
+              ),
+              const Divider(
+                height: 1,
+              ),
+            ],
           ),
         ],
       ),
@@ -96,6 +108,7 @@ class _SettingPageState extends State<SettingPage> {
     required VoidCallback onTap,
   }) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
       color: Colors.white,
       child: InkWell(

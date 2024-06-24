@@ -83,9 +83,15 @@ class _LoginChildPageState extends State<LoginChildPage> {
           } else {
             return Stack(
               children: [
-                // Image.asset(
-                //   "assets/img/background.png",
-                // ),
+                Opacity(
+                  opacity: 0.8,
+                  child: Image.asset(
+                    "assets/img/bg_sapa.jpg",
+                    fit: BoxFit.cover,
+                    height: double.infinity,
+                    width: double.infinity,
+                  ),
+                ),
                 SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -102,6 +108,7 @@ class _LoginChildPageState extends State<LoginChildPage> {
                         child: Container(
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 25),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           height: 350,
                           decoration: BoxDecoration(
                             color: AppTheme.green_1,
@@ -141,8 +148,8 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                         20.0,
                                         10.0,
                                       ),
-                                      hintText: 'Tên đăng nhập',
-                                      hintStyle: TextStyle(color: Colors.white),
+                                      labelText: 'Tên đăng nhập',
+                                      labelStyle: TextStyle(color: Colors.white),
                                       errorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(4),
@@ -191,8 +198,8 @@ class _LoginChildPageState extends State<LoginChildPage> {
                                         20.0,
                                         10.0,
                                       ),
-                                      hintText: 'Mật khẩu',
-                                      hintStyle: TextStyle(color: Colors.white),
+                                      labelText: 'Mật khẩu',
+                                      labelStyle: TextStyle(color: Colors.white),
                                       errorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(4),
