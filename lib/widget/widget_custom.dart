@@ -182,6 +182,9 @@ class WidgetCustom {
     String? errorText,
     String? initialValue,
     List<TextInputFormatter>? inputFormatters,
+    Widget? suffixIcon,
+    bool obscureText = false,
+    String obscuringCharacter = "*",
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -189,6 +192,8 @@ class WidgetCustom {
         vertical: 8,
       ),
       child: TextFormField(
+        obscuringCharacter: obscuringCharacter,
+        obscureText: obscureText,
         initialValue: initialValue,
         controller: controller,
         maxLines: maxLines,
@@ -251,7 +256,7 @@ class WidgetCustom {
               width: 1.5,
             ),
           ),
-          suffixIcon: Container(
+          suffixIcon: suffixIcon ?? Container(
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(4),
