@@ -46,26 +46,31 @@ class _QuizChildPageState extends State<QuizChildPage> {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-       body: Stack(
-         children: [
-           Container(
+     return Stack(
+       children: [
+         Container(
              height: MediaQuery.of(context).size.height,
              width: MediaQuery.of(context).size.width,
-               decoration: const BoxDecoration(
-                 gradient: LinearGradient(
-                   begin: Alignment.topRight,
-                   end: Alignment.bottomLeft,
-                   colors: [
-                     Color(0xFFbdc3c7),
-                     Color(0xFF2c3e50),
-                   ],
-                 ),
+             decoration: const BoxDecoration(
+               gradient: LinearGradient(
+                 begin: Alignment.topRight,
+                 end: Alignment.bottomLeft,
+                 colors: [
+                   Color(0xFFbdc3c7),
+                   Color(0xFF2c3e50),
+                 ],
                ),
-               child: SizedBox()
+             ),
+             child: SizedBox()
+         ),
+         SingleChildScrollView(
+           child: Column(
+             children: [
+
+             ],
            ),
-         ],
-       ),
+         )
+       ],
      );
   }
 

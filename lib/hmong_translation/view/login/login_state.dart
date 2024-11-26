@@ -6,6 +6,8 @@ class LoginState extends Equatable {
   final bool changeData;
   final String? username;
   final String? password;
+  final LoginDto? loginResponse;
+  final String? message;
 
   const LoginState({
     this.loadDataStatus = LoadStatus.initial,
@@ -13,6 +15,8 @@ class LoginState extends Equatable {
     this.changeData = false,
     this.username,
     this.password,
+    this.loginResponse,
+    this.message,
   });
 
   @override
@@ -22,6 +26,8 @@ class LoginState extends Equatable {
         changeData,
         username,
         password,
+        loginResponse,
+        message,
       ];
 
   LoginState copyWith({
@@ -30,6 +36,8 @@ class LoginState extends Equatable {
     bool? changeData,
     String? username,
     String? password,
+    LoginDto? loginResponse,
+    String? message,
   }) {
     return LoginState(
       loadDataStatus: loadDataStatus ?? this.loadDataStatus,
@@ -37,6 +45,8 @@ class LoginState extends Equatable {
       changeData: changeData ?? this.changeData,
       username: username ?? this.username,
       password: password ?? this.password,
+      loginResponse: loginResponse ?? this.loginResponse,
+      message: message ?? this.message,
     );
   }
 }
