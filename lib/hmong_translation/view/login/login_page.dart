@@ -43,8 +43,8 @@ class LoginChildPage extends StatefulWidget {
 class _LoginChildPageState extends State<LoginChildPage> {
   late final LoginCubit _cubit;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(text: "dzungdducws@gmail.com");
+  final TextEditingController _passwordController = TextEditingController(text: "123456");
 
   @override
   void initState() {
@@ -67,7 +67,9 @@ class _LoginChildPageState extends State<LoginChildPage> {
             context,
             MaterialPageRoute(
               builder: (_) => HomePage(
-                arguments: HomeArguments(),
+                arguments: HomeArguments(
+                  loginDto: state.loginResponse!,
+                ),
               ),
             ),
           );
