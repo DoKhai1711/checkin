@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/hmong_translation/model/login/login_dto.dart';
+import 'package:untitled/hmong_translation/view/login/login_page.dart';
+import 'package:untitled/hmong_translation/view/news/news_page.dart';
 import 'package:untitled/hmong_translation/view/quiz/quiz_page.dart';
 import 'package:untitled/hmong_translation/view/translate/translate_page.dart';
 
@@ -60,27 +62,27 @@ class _HomeChildPageState extends State<HomeChildPage> {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-       body: _buildBodyWidget(),
-       bottomNavigationBar: NavigationBar(
-           backgroundColor: const Color(0xFFdae2f9),
-           height: 80,
-           elevation: 0,
-           selectedIndex: pageIndex,
-           onDestinationSelected: (index) {
-             setState(() {
-               pageIndex = index;
-             });
-           },
-           destinations: const [
-             NavigationDestination(icon: Icon(Icons.translate), label: "Dịch"),
-             NavigationDestination(
-                 icon: Icon(Icons.menu_book_outlined), label: "Bài tập"),
-             NavigationDestination(
-                 icon: Icon(Icons.library_books), label: "Tài liệu"),
-             NavigationDestination(icon: Icon(Icons.person), label: "Tài khoản"),
-           ]),
-     );
+    return Scaffold(
+      body: _buildBodyWidget(),
+      bottomNavigationBar: NavigationBar(
+          backgroundColor: const Color(0xFFdae2f9),
+          height: 80,
+          elevation: 0,
+          selectedIndex: pageIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              pageIndex = index;
+            });
+          },
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.translate), label: "Dịch"),
+            NavigationDestination(
+                icon: Icon(Icons.menu_book_outlined), label: "Bài tập"),
+            NavigationDestination(
+                icon: Icon(Icons.library_books), label: "Tài liệu"),
+            NavigationDestination(icon: Icon(Icons.person), label: "Tài khoản"),
+          ]),
+    );
   }
 
   Widget _buildBodyWidget() {
@@ -90,12 +92,76 @@ class _HomeChildPageState extends State<HomeChildPage> {
       case 1:
         return QuizPage(arguments: QuizArguments());
       case 2:
-        return SizedBox();
+        return NewsPage(arguments: NewsArguments());
       case 3:
-        return SizedBox();
+        return profileWidget();
       default:
         return SizedBox();
     }
+  }
+
+  Widget profileWidget() {
+    return Stack(
+      children: [
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 50),
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(
+                    'https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png'),
+              ),
+              SizedBox(height: 20),
+              Text(
+                widget.arguments.loginDto.username ?? "",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text('Email: ${widget.arguments.loginDto.email}'),
+            ],
+          ),
+        ),
+        Positioned(
+            bottom: 0,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => LoginPage(
+                          arguments: LoginArguments(),
+                        ),
+                      ),
+                      (route) => false,
+                    );
+                  },
+                  child: Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Đăng xuất",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )),
+      ],
+    );
   }
 
   @override

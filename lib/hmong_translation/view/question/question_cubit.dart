@@ -41,4 +41,26 @@ class QuestionCubit extends Cubit<QuestionState> {
       );
     }
   }
+
+  void onAnswer({
+    required int answerIndex
+}) {
+    emit(
+      state.copyWith(
+        changeData: !state.changeData,
+        hasAnswered: true,
+        answerIndex: answerIndex,
+      ),
+    );
+  }
+
+  void nextQuest() {
+    emit(
+      state.copyWith(
+        index: state.index+1,
+        changeData: !state.changeData,
+        hasAnswered: false,
+      ),
+    );
+  }
 }

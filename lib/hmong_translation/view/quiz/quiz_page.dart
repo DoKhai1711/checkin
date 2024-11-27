@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/hmong_translation/view/question/question_page.dart';
 import 'package:untitled/utils/enum.dart';
 import 'package:untitled/utils/loading_indicator.dart';
 
@@ -89,7 +90,16 @@ class _QuizChildPageState extends State<QuizChildPage> {
                           Center(
                             child: InkWell(
                               onTap: () {
-
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => QuestionPage(
+                                      arguments: QuestionArguments(
+                                        id: state.data![i].setid!,
+                                      ),
+                                    ),
+                                  ),
+                                );
                               },
                               child: Container(
                                 margin: const EdgeInsets.symmetric(vertical: 12),

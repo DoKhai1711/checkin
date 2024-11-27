@@ -5,16 +5,16 @@ import 'package:untitled/hmong_translation/view/login/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: "xxxx",
-        authDomain: "xxxx",
-        projectId: "xxxx",
-        databaseURL: "https://checkin-86fe1-default-rtdb.asia-southeast1.firebasedatabase.app",
-        storageBucket: "xxx",
-        messagingSenderId: "xxxxx",
-        appId: "xxxx"),
-  );
+  // await Firebase.initializeApp(
+  //   options: const FirebaseOptions(
+  //       apiKey: "xxxx",
+  //       authDomain: "xxxx",
+  //       projectId: "xxxx",
+  //       databaseURL: "https://checkin-86fe1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  //       storageBucket: "xxx",
+  //       messagingSenderId: "xxxxx",
+  //       appId: "xxxx"),
+  // );
   runApp(const MyApp());
 }
 

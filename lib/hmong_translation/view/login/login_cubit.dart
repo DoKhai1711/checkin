@@ -23,8 +23,10 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> onLogin(
-      {required String email, required String password}) async {
+  Future<void> onLogin({
+    required String email,
+    required String password,
+  }) async {
     try {
       emit(state.copyWith(saveStatus: LoadStatus.loading));
       LoginRequestDto request = LoginRequestDto(

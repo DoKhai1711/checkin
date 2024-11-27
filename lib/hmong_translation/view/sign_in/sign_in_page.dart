@@ -119,14 +119,40 @@ class _SignInChildPageState extends State<SignInChildPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     WidgetCustom.itemInfo(
-                      title: "Tên đăng nhập",
+                      title: "Họ và tên",
                       hasIcon: false,
                       widget: WidgetCustom.textField(
                         initialValue: state.username,
-                        hintText: "Tên đăng nhập",
+                        hintText: "Họ và tên",
                         onChange: (value) {
                           _cubit.onChangeData(
                             usernameInput: value.trim(),
+                          );
+                        },
+                        suffixIcon: Container(
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(4),
+                                bottomRight: Radius.circular(4),
+                              )),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                      ),
+                      isRequired: true,
+                      isShowDivider: false,
+                    ),
+                    WidgetCustom.itemInfo(
+                      title: "Email",
+                      hasIcon: false,
+                      widget: WidgetCustom.textField(
+                        initialValue: state.email,
+                        hintText: "Email",
+                        onChange: (value) {
+                          _cubit.onChangeData(
+                            emailInput: value.trim(),
                           );
                         },
                         suffixIcon: Container(
