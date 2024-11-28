@@ -172,7 +172,7 @@ class _QuestionChildPageState extends State<QuestionChildPage> {
                           ),
                           SizedBox(height: 20),
                           for (int i = 0;
-                          i < (state.data?.list ?? []).length;
+                          i < (state.data?.list?[state.index]?.list ?? []).length;
                           i++) ...[
                             Center(
                               child: InkWell(

@@ -7,6 +7,7 @@ import 'package:untitled/hmong_translation/model/login/login_dto.dart';
 import 'package:untitled/hmong_translation/model/login/login_request_dto.dart';
 import 'package:untitled/hmong_translation/model/login/sign_in_request.dart';
 import 'package:untitled/hmong_translation/model/question/group_question.dart';
+import 'package:untitled/hmong_translation/model/translate/translate_request.dart';
 import 'package:untitled/hmong_translation/service/base/base_service.dart';
 import 'package:untitled/hmong_translation/service/network/api_request.dart';
 import 'package:untitled/hmong_translation/service/network/path_url.dart';
@@ -24,6 +25,10 @@ abstract class MyAppService {
 
   Future<ResponseObject<GroupQuestionDto>> getGroupQuest({
     required int id,
+  });
+
+  Future<String> translate({
+    required TranslateRequestDto request,
   });
 
 }
@@ -163,6 +168,36 @@ class MyAppServiceImp extends BaseService implements MyAppService {
         print(ex);
       }
       return ResponseObject(error: ex.toString());
+    }
+  }
+
+  @override
+  Future<String> translate({
+    required TranslateRequestDto request,
+  }) async {
+    try {
+      final requestEncode = json.encode(request.toJson());
+
+      http.Response response = await ApiRequest.post(
+        EndPoint.URL_TRANSLATE,
+        body: requestEncode,
+      );
+
+      if (kDebugMode) {
+        print("${response.request?.url.toString()}");
+      }
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(utf8.decode(response.bodyBytes));
+        return jsonData['text'];
+      } else {
+        return "Dịch thất bại";
+      }
+    } catch (ex) {
+      if (kDebugMode) {
+        print(ex);
+      }
+      return "Có lỗi xảy ra server";
     }
   }
 
