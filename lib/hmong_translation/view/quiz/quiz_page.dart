@@ -96,6 +96,7 @@ class _QuizChildPageState extends State<QuizChildPage> {
                                     builder: (_) => QuestionPage(
                                       arguments: QuestionArguments(
                                         id: state.data![i].setid!,
+                                        type: i,
                                       ),
                                     ),
                                   ),

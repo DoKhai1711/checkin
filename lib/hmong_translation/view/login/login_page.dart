@@ -43,8 +43,8 @@ class LoginChildPage extends StatefulWidget {
 class _LoginChildPageState extends State<LoginChildPage> {
   late final LoginCubit _cubit;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController(text: "dzungdducws@gmail.com");
-  final TextEditingController _passwordController = TextEditingController(text: "123456");
+  final TextEditingController _emailController = TextEditingController(text: "");
+  final TextEditingController _passwordController = TextEditingController(text: "");
 
   @override
   void initState() {

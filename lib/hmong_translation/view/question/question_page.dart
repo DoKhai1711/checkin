@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,9 +12,11 @@ import 'question_cubit.dart';
 
 class QuestionArguments {
   int id;
+  int type;
 
   QuestionArguments({
     required this.id,
+    required this.type,
   });
 }
 
@@ -51,6 +55,7 @@ class QuestionChildPage extends StatefulWidget {
 
 class _QuestionChildPageState extends State<QuestionChildPage> {
   late final QuestionCubit _cubit;
+  TextEditingController answerController = TextEditingController();
 
   @override
   void initState() {
@@ -110,57 +115,61 @@ class _QuestionChildPageState extends State<QuestionChildPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
-                              child: TextFormField(
-                                controller: TextEditingController(text: state.data?.list?[state.index]?.questiontext ?? ""),
-                                minLines: 4,
-                                readOnly: true,
-                                maxLines: null,
-                                cursorColor: AppTheme.blackText.withOpacity(0.5),
-                                style: AppTheme.blackS18W400,
-                                decoration: const InputDecoration(
-                                  fillColor: AppTheme.white,
-                                  filled: true,
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                    10.0,
-                                    10.0,
-                                    20.0,
-                                    10.0,
-                                  ),
-                                  hintStyle: AppTheme.greyHintS16W400,
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(4),
+                          if (widget.arguments.type==2)...[
+                            Image.memory(base64Decode(state.data?.list?[state.index]?.questionImg ?? "")),
+                          ] else...[
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: TextFormField(
+                                  controller: TextEditingController(text: state.data?.list?[state.index]?.questiontext ?? ""),
+                                  minLines: 4,
+                                  readOnly: true,
+                                  maxLines: null,
+                                  cursorColor: AppTheme.blackText.withOpacity(0.5),
+                                  style: AppTheme.blackS18W400,
+                                  decoration: const InputDecoration(
+                                    fillColor: AppTheme.white,
+                                    filled: true,
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                      10.0,
+                                      10.0,
+                                      20.0,
+                                      10.0,
                                     ),
-                                    borderSide: BorderSide(
-                                      color: AppTheme.greyText,
-                                      width: 1.5,
+                                    hintStyle: AppTheme.greyHintS16W400,
+                                    disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(4),
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: AppTheme.greyText,
+                                        width: 1.5,
+                                      ),
                                     ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(4),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(4),
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: AppTheme.greyText,
+                                        width: 1.5,
+                                      ),
                                     ),
-                                    borderSide: BorderSide(
-                                      color: AppTheme.greyText,
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(4),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: AppTheme.greyText,
-                                      width: 1.5,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(4),
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: AppTheme.greyText,
+                                        width: 1.5,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                           SizedBox(height: 20),
                           Text(
                             "Đáp án",
@@ -171,49 +180,11 @@ class _QuestionChildPageState extends State<QuestionChildPage> {
                             ),
                           ),
                           SizedBox(height: 20),
-                          for (int i = 0;
-                          i < (state.data?.list?[state.index]?.list ?? []).length;
-                          i++) ...[
-                            Center(
-                              child: InkWell(
-                                onTap: () {
-                                  if (!state.hasAnswered) {
-                                    _cubit.onAnswer(
-                                      answerIndex: i,
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  margin:
-                                  const EdgeInsets.symmetric(vertical: 12),
-                                  width: MediaQuery.of(context).size.width * 0.9,
-                                  decoration: BoxDecoration(
-                                      color: _colorAnswer(
-                                        isCorrect: state.data!.list![state.index]!.list![i]?.iscorrect??0,
-                                        answerIndex: i,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Colors.white,
-                                      )
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16, horizontal: 12),
-                                  child: Center(
-                                    child: Text(
-                                      state.data!.list![state.index]!.list![i]
-                                          ?.answertext ??
-                                          "",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                          if (widget.arguments.type==1)...[
+                            fillInTheBlankWidget(),
+                          ] else...[
+                            selectAnswerWidget(),
+                          ]
                         ],
                       ),
                     ),
@@ -239,6 +210,7 @@ class _QuestionChildPageState extends State<QuestionChildPage> {
                       child: Center(
                         child: InkWell(
                           onTap: () {
+                            answerController.text = "";
                             _cubit.nextQuest();
                           },
                           child: Container(
@@ -283,6 +255,152 @@ class _QuestionChildPageState extends State<QuestionChildPage> {
     );
   }
 
+  Widget selectAnswerWidget() {
+    return Column(
+      children: [
+        for (int i = 0;
+        i < (_cubit.state.data?.list?[_cubit.state.index]?.list ?? []).length;
+        i++) ...[
+          Center(
+            child: InkWell(
+              onTap: () {
+                if (!_cubit.state.hasAnswered) {
+                  _cubit.onAnswer(
+                    answerIndex: i,
+                  );
+                }
+              },
+              child: Container(
+                margin:
+                const EdgeInsets.symmetric(vertical: 12),
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                    color: _colorAnswer(
+                      isCorrect: _cubit.state.data!.list![_cubit.state.index]!.list![i]?.iscorrect??0,
+                      answerIndex: i,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.white,
+                    )
+                ),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16, horizontal: 12),
+                child: Center(
+                  child: Text(
+                    _cubit.state.data!.list![_cubit.state.index]!.list![i]
+                        ?.answertext ??
+                        "",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ],
+    );
+  }
+
+  Widget fillInTheBlankWidget() {
+    return Column(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: TextFormField(
+              controller: answerController,
+              maxLines: null,
+              cursorColor: AppTheme.blackText.withOpacity(0.5),
+              style: AppTheme.blackS18W400,
+              decoration: InputDecoration(
+                fillColor: _colorFillInTheBlank(),
+                filled: true,
+                contentPadding: EdgeInsets.fromLTRB(
+                  10.0,
+                  10.0,
+                  20.0,
+                  10.0,
+                ),
+                hintStyle: AppTheme.greyHintS16W400,
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                  borderSide: BorderSide(
+                    color: AppTheme.greyText,
+                    width: 1.5,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                  borderSide: BorderSide(
+                    color: AppTheme.greyText,
+                    width: 1.5,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                  borderSide: BorderSide(
+                    color: AppTheme.greyText,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 40),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: InkWell(
+              onTap: () {
+                _cubit.onAnswer(answerIndex: 0);
+              },
+              child: Container(
+                height: 40,
+                width: MediaQuery.of(context).size.width * 0.6,
+                margin: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Trả lời",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 40),
+        Visibility(
+          visible: _cubit.state.hasAnswered,
+          child: Text(
+              "Kết quả đúng: ${_cubit.state.data!.list![_cubit.state.index]!.list![0]?.answertext}",
+            style: TextStyle(
+              color: Colors.green,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   Color _colorAnswer({
     required int isCorrect,
     required int answerIndex,
@@ -298,6 +416,18 @@ class _QuestionChildPageState extends State<QuestionChildPage> {
         } else {
           return Colors.white;
         }
+      }
+    }
+  }
+
+  Color _colorFillInTheBlank() {
+    if (!_cubit.state.hasAnswered) {
+      return Colors.white;
+    } else {
+      if (answerController.text == _cubit.state.data!.list![_cubit.state.index]!.list![0]?.answertext) {
+        return Colors.green;
+      } else {
+        return Colors.red;
       }
     }
   }

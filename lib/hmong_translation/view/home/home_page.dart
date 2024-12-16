@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/hmong_translation/model/login/login_dto.dart';
+import 'package:untitled/hmong_translation/view/culture/culture_page.dart';
 import 'package:untitled/hmong_translation/view/login/login_page.dart';
 import 'package:untitled/hmong_translation/view/news/news_page.dart';
 import 'package:untitled/hmong_translation/view/quiz/quiz_page.dart';
@@ -79,7 +80,9 @@ class _HomeChildPageState extends State<HomeChildPage> {
             NavigationDestination(
                 icon: Icon(Icons.menu_book_outlined), label: "Bài tập"),
             NavigationDestination(
-                icon: Icon(Icons.library_books), label: "Tài liệu"),
+                icon: Icon(Icons.library_books), label: "Ngữ pháp"),
+            NavigationDestination(
+                icon: Icon(Icons.temple_buddhist_outlined), label: "Văn hoá"),
             NavigationDestination(icon: Icon(Icons.person), label: "Tài khoản"),
           ]),
     );
@@ -94,6 +97,8 @@ class _HomeChildPageState extends State<HomeChildPage> {
       case 2:
         return NewsPage(arguments: NewsArguments());
       case 3:
+        return CulturePage(arguments: CultureArguments());
+      case 4:
         return profileWidget();
       default:
         return SizedBox();
@@ -120,6 +125,16 @@ class _HomeChildPageState extends State<HomeChildPage> {
               ),
               SizedBox(height: 10),
               Text('Email: ${widget.arguments.loginDto.email}'),
+              SizedBox(height: 20),
+              Text(
+                "Quét QR để tham gia cộng đồng",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              Center(
+                child: Image.asset(
+                  "assets/img/qr_code.jpg",
+                ),
+              ),
             ],
           ),
         ),

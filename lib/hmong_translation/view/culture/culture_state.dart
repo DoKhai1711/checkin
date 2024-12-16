@@ -1,32 +1,27 @@
-part of 'news_cubit.dart';
+part of 'culture_cubit.dart';
 
-class NewsState extends Equatable {
+class CultureState extends Equatable {
   final LoadStatus loadDataStatus;
   final List<NewsDto>? listData;
-  final Uint8List? pdfData;
 
-  const NewsState({
+  const CultureState({
     this.loadDataStatus = LoadStatus.initial,
     this.listData,
-    this.pdfData,
   });
 
   @override
   List<Object?> get props => [
         loadDataStatus,
         listData,
-        pdfData,
       ];
 
-  NewsState copyWith({
+  CultureState copyWith({
     LoadStatus? loadDataStatus,
     List<NewsDto>? listData,
-    Uint8List? pdfData,
   }) {
-    return NewsState(
+    return CultureState(
       loadDataStatus: loadDataStatus ?? this.loadDataStatus,
       listData: listData ?? this.listData,
-      pdfData: pdfData ?? this.pdfData,
     );
   }
 }

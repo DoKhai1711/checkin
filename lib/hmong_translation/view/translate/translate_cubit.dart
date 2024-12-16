@@ -35,26 +35,35 @@ class TranslateCubit extends Cubit<TranslateState> {
     required String text,
   }) async {
     try {
-      emit(
-        state.copyWith(
-          changeData: !state.changeData,
-          toText: "..."
-        ),
-      );
-      TranslateRequestDto request = TranslateRequestDto(
-        text: text,
-        source_lang: state.isHmongToViet ? 'mong' : 'viet',
-        target_lang: state.isHmongToViet ? 'viet' : 'mong',
-      );
+      if (text.isEmpty) {
+        emit(
+          state.copyWith(
+            changeData: !state.changeData,
+            toText: "",
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+              changeData: !state.changeData,
+              toText: "..."
+          ),
+        );
+        TranslateRequestDto request = TranslateRequestDto(
+          text: text,
+          source_lang: state.isHmongToViet ? 'mong' : 'viet',
+          target_lang: state.isHmongToViet ? 'viet' : 'mong',
+        );
 
-      final result = await _service.translate(request: request);
+        final result = await _service.translate(request: request);
 
-      emit(
-        state.copyWith(
-          changeData: !state.changeData,
-          toText: result,
-        ),
-      );
+        emit(
+          state.copyWith(
+            changeData: !state.changeData,
+            toText: result,
+          ),
+        );
+      }
     } catch (e) {
       //Todo: should print exception here
       emit(

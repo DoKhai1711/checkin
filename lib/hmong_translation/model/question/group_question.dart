@@ -35,17 +35,20 @@ class GroupQuestionDto {
 class QuestionDto {
   int? questionid;
   String? questiontext;
+  String? questionImg;
   List<AnswerDto?>? list;
 
   QuestionDto({
     this.questionid,
     this.questiontext,
+    this.questionImg,
     this.list,
   });
 
   QuestionDto.fromJson(Map<String, dynamic> json) {
     questionid = json['question_id'];
     questiontext = json['question_text'];
+    questionImg = json['question_img'];
     if (json['list'] != null) {
       list = <AnswerDto>[];
       json['list'].forEach((v) {
@@ -58,6 +61,7 @@ class QuestionDto {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['question_id'] = questionid;
     data['question_text'] = questiontext;
+    data['question_img'] = questionImg;
     data['list'] = list != null ? list!.map((v) => v?.toJson()).toList() : null;
 
     return data;
