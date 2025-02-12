@@ -8,6 +8,8 @@ name: Dart
 on:
   push:
     branches: [ "khai/mobile/hmong_translation" ]
+  pull_request:
+    branches: [ "khai/mobile/hmong_translation" ]
 
 jobs:
   build:
